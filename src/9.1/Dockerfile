@@ -34,13 +34,6 @@ VOLUME /data
 # Install gosu
 ENV GOSU_VERSION 1.10
 RUN set -ex; \
-	\
-	fetchDeps=' \
-		ca-certificates \
-		wget \
-	'; \
-	apt-get update; \
-	apt-get install -y --no-install-recommends $fetchDeps; \
 	rm -rf /var/lib/apt/lists/*; \
 	\
 	dpkgArch="$(dpkg --print-architecture | awk -F- '{ print $NF }')"; \
@@ -55,8 +48,6 @@ RUN set -ex; \
 	\
 	chmod +x /usr/local/bin/gosu; \
 # verify that the binary works
-	gosu nobody true; \
-	\
-	apt-get purge -y --auto-remove $fetchDeps
+	gosu nobody true;
 
 ENTRYPOINT ["/usr/bin/entry-point"]
