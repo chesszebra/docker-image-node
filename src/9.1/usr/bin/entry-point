@@ -12,10 +12,10 @@ fi
 
 # check if the first argument passed in looks like a flag
 if [ "$(printf %c "$1")" = '-' ]; then
-  set -- /sbin/tini -- node "$@"
+  set -- node "$@"
 # check if the first argument passed in is the application name
 elif [ "$1" = "node" ]; then
-  set -- /sbin/tini -- "$@"
+  set -- "$@"
 fi
 
-exec "$@"
+gosu node ${@}

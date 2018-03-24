@@ -50,11 +50,6 @@ RUN set -ex; \
 # verify that the binary works
 	gosu nobody true;
 
-# Install Tini
-ENV TINI_VERSION v0.17.0
-ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /sbin/tini
-RUN chmod +x /sbin/tini
-
 # Execute the entry point
 ENTRYPOINT ["/usr/bin/entry-point"]
 
