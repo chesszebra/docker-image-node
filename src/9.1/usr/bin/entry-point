@@ -10,4 +10,12 @@ if [ "$OWNER" != "0" ]; then
     groupmod -g $GROUP node 2> /dev/null
 fi
 
-gosu node ${@}
+# check if the first argument passed in looks like a flag
+if [ "$(printf %c "$1")" = '-' ]; then
+  set -- /sbin/tini -- node "$@"
+# check if the first argument passed in is the application name
+elif [ "$1" = "node" ]; then
+  set -- /sbin/tini -- "$@"
+fi
+
+exec "$@"
