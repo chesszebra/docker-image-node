@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 
-set -e
+#set -e
 
 OWNER=$(stat -c '%u' /data)
 GROUP=$(stat -c '%g' /data)
 
-if [ "$OWNER" != "0" ]; then
+if [[ "$OWNER" != "0" ]]; then
     usermod -u $OWNER node 2> /dev/null
     groupmod -g $GROUP node 2> /dev/null
 fi
