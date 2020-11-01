@@ -1,4 +1,4 @@
-FROM node:12-alpine
+FROM node:15-alpine
 
 # Configure the system
 RUN apk add --no-cache \
