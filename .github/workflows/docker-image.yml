@@ -22,9 +22,11 @@ jobs:
 
       - name: Build
         run: |
-          cd src/14
-          docker build -t chesszebra/node:14 .
-          docker push chesszebra/node:14
+          VERSION=14
+          IMAGE_NAME="chesszebra/$(echo "$GITHUB_REPOSITORY" | cut -c 25-):${VERSION}"
+          cd src/$VERSION
+          docker build -t $IMAGE_NAME .
+          docker push $IMAGE_NAME
 
   build-node15:
     runs-on: ubuntu-latest
@@ -39,7 +41,10 @@ jobs:
 
       - name: Build
         run: |
-          cd src/15
-          docker build -t chesszebra/node:15 -t chesszebra/node:latest .
-          docker push chesszebra/node:14
-          docker push chesszebra/node:latest
+          VERSION=15
+          IMAGE_NAME="chesszebra/$(echo "$GITHUB_REPOSITORY" | cut -c 25-):${VERSION}"
+          IMAGE_NAME_LATEST="chesszebra/$(echo "$GITHUB_REPOSITORY" | cut -c 25-):latest"
+          cd src/$VERSION
+          docker build -t $IMAGE_NAME -t $IMAGE_NAME_LATEST .
+          docker push $IMAGE_NAME
+          docker push $IMAGE_NAME_LATEST
